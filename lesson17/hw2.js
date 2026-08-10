@@ -1,27 +1,27 @@
 // раз у нас в тз задано, что число состоит строго их шести цифр - используем логику с math.trunc и можем позволить себе разбить число примитивным методом деления на тыщу
 
-let number = 123322;
+let number = 123321;
+let sum1 = 0;
 let sum2 = 0;
-let sum3 = 0;
-let number2 = Math.trunc(number / 1000);
+let left = Math.trunc(number / 1000);
 // console.log(number2);
-let number3 = number % 1000;
+let right = number % 1000;
 // console.log(number3);
-while (number2 > 0) {
-  let digit = number2 % 10;
-  sum2 += digit;
-  number2 = Math.trunc(number2 / 10);
+while (left > 0) {
+  let digit = left % 10;
+  sum1 += digit;
+  left = Math.trunc(left / 10);
 }
 
-while (number3 > 0) {
-  let digit = number3 % 10;
-  sum3 += digit;
-  number3 = Math.trunc(number3 / 10);
+while (right > 0) {
+  let digit = right % 10;
+  sum2 += digit;
+  right = Math.trunc(right / 10);
 }
 
 // console.log(sum2, sum3);
 
-if (sum2 === sum3) {
+if (sum1 === sum2) {
   console.log("Число счастливое");
 } else {
   console.log("Число несчастливое");
@@ -31,14 +31,14 @@ if (sum2 === sum3) {
 
 // строго говоря, цикл тут не нужен вообще
 
-let number2 = 123322;
+let number2 = 123321;
 
-let left = Math.trunc(number2 / 1000);  
-let right = number2 % 1000;             
+let left1 = Math.trunc(number2 / 1000);  
+let right1 = number2 % 1000;             
 
-let sum2 = Math.trunc(left / 100) + Math.trunc((left % 100) / 10) + (left % 10);
+let sum3 = Math.trunc(left1 / 100) + Math.trunc((left1 % 100) / 10) + (left1 % 10);
 
-let sum3 = Math.trunc(right / 100) + Math.trunc((right % 100) / 10) + (right % 10);
+let sum4 = Math.trunc(right1 / 100) + Math.trunc((right1 % 100) / 10) + (right1 % 10);
 
-console.log(sum2 === sum3 ? "Число счастливое" : "Число несчастливое");
+console.log(sum3 === sum4 ? "Число счастливое" : "Число несчастливое");
 
