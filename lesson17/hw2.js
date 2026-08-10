@@ -4,9 +4,9 @@ let number = 123321;
 let sum1 = 0;
 let sum2 = 0;
 let left = Math.trunc(number / 1000);
-// console.log(number2);
+// console.log(left);
 let right = number % 1000;
-// console.log(number3);
+// console.log(right);
 while (left > 0) {
   let digit = left % 10;
   sum1 += digit;
