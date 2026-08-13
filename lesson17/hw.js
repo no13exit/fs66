@@ -1,4 +1,4 @@
-let number = 1113332;
+let number = 12211221;
 
 let sum1 = 0;
 let sum2 = 0;
@@ -17,6 +17,9 @@ while (number > 0) {
   counter++;
 }
 
+
+
+
 // console.log(sum1);
 // console.log(sum2);
 if (sum1 === sum2) {
@@ -24,6 +27,13 @@ if (sum1 === sum2) {
 } else if (sum1 !== sum2) {
   console.log("Число несчастливое");
 }
+
+
+console.log(90071992547409192===90071992547409190); 
+console.log(Number.MAX_SAFE_INTEGER);
+
+
+
 
 //works, but not for BigInt numbers as i found during tests. below is BigInt code with duplicated variables 
 

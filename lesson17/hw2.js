@@ -27,18 +27,17 @@ if (sum1 === sum2) {
   console.log("Число несчастливое");
 }
 
-
-
 // строго говоря, цикл тут не нужен вообще
 
 let number2 = 123321;
 
-let left1 = Math.trunc(number2 / 1000);  
-let right1 = number2 % 1000;             
+let left1 = Math.trunc(number2 / 1000);
+let right1 = number2 % 1000;
 
-let sum3 = Math.trunc(left1 / 100) + Math.trunc((left1 % 100) / 10) + (left1 % 10);
+let sum3 =
+  Math.trunc(left1 / 100) + Math.trunc((left1 % 100) / 10) + (left1 % 10);
 
-let sum4 = Math.trunc(right1 / 100) + Math.trunc((right1 % 100) / 10) + (right1 % 10);
+let sum4 =
+  Math.trunc(right1 / 100) + Math.trunc((right1 % 100) / 10) + (right1 % 10);
 
 console.log(sum3 === sum4 ? "Число счастливое" : "Число несчастливое");
-
