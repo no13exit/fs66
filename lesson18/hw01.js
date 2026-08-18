@@ -1,7 +1,7 @@
 
 // function *name* = name is optional, but since it is allowed and I am copypasting - why not?
 
-const plus = function plus(a, b) {
+const plus = function (a, b) {
     return (a + b);
 }
 
@@ -17,19 +17,24 @@ const divide = function divide(a, b) {
     if (!b) {return 'cannot divide by zero'} else {return (a / b)}
 }
 
+// const calc = function calc(a, act, b) {
+//     switch (act) {
+//         case plus:
+//             return plus(a,b);
+//         case minus:
+//             return minus(a,b);
+//         case mult:
+//             return mult(a,b);
+//         case divide:
+//             return divide(a,b);
+//         default:
+//             return 'Unsupported operation'
+//     }
+// }
+
+
 const calc = function calc(a, act, b) {
-    switch (act) {
-        case plus:
-            return plus(a,b);
-        case minus:
-            return minus(a,b);
-        case mult:
-            return mult(a,b);
-        case divide:
-            return divide(a,b);
-        default:
-            return 'Unsupported operation'
-    }
+    return act(a,b);
 }
 
 // same test cases

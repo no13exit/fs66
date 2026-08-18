@@ -18,19 +18,23 @@ function divide(a, b) {
 
 // console.log(divide(10,0))
 
+// function calc(a, act, b) {
+//     switch (act) {
+//         case plus:
+//             return plus(a,b);
+//         case minus:
+//             return minus(a,b);
+//         case mult:
+//             return mult(a,b);
+//         case divide:
+//             return divide(a,b);
+//         default:
+//             return 'Unsupported operation'
+//     }
+// }
+
 function calc(a, act, b) {
-    switch (act) {
-        case plus:
-            return plus(a,b);
-        case minus:
-            return minus(a,b);
-        case mult:
-            return mult(a,b);
-        case divide:
-            return divide(a,b);
-        default:
-            return 'Unsupported operation'
-    }
+    return act(a,b);
 }
 
 // console.log(calc(5, divide, 2));
@@ -40,3 +44,12 @@ console.log(calc(10, minus, 4)); // 6
 console.log(calc(4, mult, 3));   // 12
 console.log(calc(5, divide, 2)); // 2.5
 console.log(calc(5, divide, 0)); // cannot divide by zero
+// console.log(calc(35, whatever, 6)); //provides error (whatever is not defined)
+
+
+function test(a) {
+    console.log("test");
+    return;
+}
+
+console.log(test());
