@@ -45,17 +45,18 @@ const comparatorExpression = function(a, b) {
 
 
 const sortedByDeclaration = [...lines].sort(comparatorDeclaration);
-console.log("==============================")
+console.log(sortedByDeclaration);
 console.log(sortedByDeclaration[sortedByDeclaration.length-1]);
 
 
 
-
 const sortedByExpression = [...lines].sort(comparatorExpression);
+console.log(sortedByExpression);
 console.log(sortedByExpression[sortedByExpression.length-1]);
 
 
 const sortedByArrow = [...lines].sort(comparatorArrow);
+console.log(sortedByArrow);
 console.log(sortedByArrow[sortedByArrow.length-1]);
 
 
