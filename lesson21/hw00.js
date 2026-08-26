@@ -95,6 +95,5 @@ products.forEach((element) => {
       } else {
         console.log(`${key}: ${element[key]}`);
       }
-  }
-  console.log("==================================");
+  };
 });
