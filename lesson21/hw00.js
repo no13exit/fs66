@@ -82,6 +82,19 @@ const products = [
   product8,
 ];
 
-products.forEach((element) => {
-  console.log(element.info());
+// products.forEach((element) => {
+//   console.log(element.info());
+// });
+
+
+products.forEach((element) => {  
+   console.log("==================================");
+  for (const key in element) {
+      if (typeof element[key] === 'function') {
+        console.log(`aggregated: ${element[key]()}`);
+      } else {
+        console.log(`${key}: ${element[key]}`);
+      }
+  }
+  console.log("==================================");
 });
