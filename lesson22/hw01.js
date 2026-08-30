@@ -81,14 +81,11 @@ function printAccounts(accounts) {
 printAccounts(arr);
 
 
-function transfer (from, to, amount) {
+function transfer (account1, account2, amount) {
     if (from.balance - amount >= 0) {
         from.withdraw(amount);
         to.deposit(amount);
         return {
-            account1: from,
-            account2: to,
-            amount: amount,
             transactionInfo: function() {
                 // have a feeling that we do not need both console.log and return, but the task is not clear about it
                 console.log(`Transfer successful from ${this.account1.iban} to ${this.account2.iban}: ${this.amount}`);
@@ -97,9 +94,6 @@ function transfer (from, to, amount) {
         };
     } else {
         return {
-            account1: from,
-            account2: to,
-            amount: amount,
             error: "Insufficient funds",
             transactionInfo: function() {
                 // have a feeling that we do not need both console.log and return, but the task is not clear about it
