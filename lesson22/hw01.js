@@ -36,9 +36,6 @@ function Account (iban, owner, balance) {
   this.iban = iban;
   this.owner = owner;
   this.balance = balance;
-//   this.info = function () {
-//     return `товар: ${this.name}; цена: ${this.price} описание: ${this.description}`;
-//   };
 this.deposit = function (amount) {
     this.balance += amount;
 }
