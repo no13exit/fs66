@@ -69,50 +69,88 @@ const arr = [test1, test2, test3, test4, test5, test6];
 
 console.log("accounts list printout");
 
-function printAccounts(accounts) {
-  accounts.forEach(function (account, index) {
-    console.log(`========== Account ${index + 1} ==========`);
-    console.log(`IBAN: ${account.iban}`);
-    console.log(`Owner: ${account.owner}`);
-    console.log(`Balance: ${account.getBalance()}`);
-  });
+// Array for storing compact transaction records
+const transactions = [];
+
+
+// Transfer function
+function transfer(account1, account2, amount) {
+  const transaction = {};
+
+  transaction.account1 = account1;
+  transaction.account2 = account2;
+  transaction.amount = amount;
+
+  if (account1.balance - amount >= 0) {
+    account1.withdraw(amount);
+    account2.deposit(amount);
+
+    transaction.transactionInfo = function () {
+      console.log(
+        `Transfer successful from ${account1.iban} ` +
+        `to ${account2.iban}: ${amount}`
+      );
+    };
+  } else {
+    transaction.error = "Insufficient funds";
+
+    transaction.transactionInfo = function () {
+      console.log(
+        `Transfer failed from ${account1.iban} ` +
+        `to ${account2.iban}: ${amount} - ${transaction.error}`
+      );
+    };
+  }
+
+  return transaction;
 }
 
-printAccounts(arr);
 
+// Function for adding a compact transaction record to the array
+function addTransaction(array, transaction) {
+  const transactionRecord = {};
 
-function transfer (account1, account2, amount) {
-    if (from.balance - amount >= 0) {
-        from.withdraw(amount);
-        to.deposit(amount);
-        return {
-            transactionInfo: function() {
-                // have a feeling that we do not need both console.log and return, but the task is not clear about it
-                console.log(`Transfer successful from ${this.account1.iban} to ${this.account2.iban}: ${this.amount}`);
-                return `Transfer successful from ${this.account1.iban} to ${this.account2.iban}: ${this.amount}`;
-            }
-        };
-    } else {
-        return {
-            error: "Insufficient funds",
-            transactionInfo: function() {
-                // have a feeling that we do not need both console.log and return, but the task is not clear about it
-                console.log(`Transfer failed from ${this.account1.iban} to ${this.account2.iban}: ${this.amount} - ${this.error}`);
-                return `Transfer failed from ${this.account1.iban} to ${this.account2.iban}: ${this.amount} - ${this.error}`;
-            }
-        };
-    }
+  transactionRecord.account1 = transaction.account1.iban;
+  transactionRecord.account2 = transaction.account2.iban;
+  transactionRecord.amount = transaction.amount;
+
+  if (transaction.error) {
+    transactionRecord.status = "Failed";
+    transactionRecord.error = transaction.error;
+  } else {
+    transactionRecord.status = "Successful";
+  }
+
+  array.push(transactionRecord);
 }
-// test insufficient balance
-const result = transfer(test1, test2, 213214);
-console.log("============testing insufficient balance full output===========");
-console.log(result);
-console.log("============testing insufficient balance transactionInfo===========");
-console.log(result.transactionInfo());
 
-// test successful transfer
-const result2 = transfer(test2, test1, 213214);
-console.log("==============testing successful transfer full output===========");
-console.log(result2);
-console.log("==============testing successful transfer transactionInfo===========");
-console.log(result2.transactionInfo());
+
+// Successful transfer test
+const successfulTransaction = transfer(test1, test2, 100);
+
+addTransaction(transactions, successfulTransaction);
+
+console.log("========== Successful transaction test ==========");
+successfulTransaction.transactionInfo();
+
+
+// Failed transfer test
+const failedTransaction = transfer(test1, test2, 1000000000);
+
+addTransaction(transactions, failedTransaction);
+
+console.log("========== Failed transaction test ==========");
+failedTransaction.transactionInfo();
+
+
+// Compact transaction history
+console.log("========== Transactions array ==========");
+console.log(transactions);
+console.log("========== Failed transaction test ==========");
+failedTransaction.transactionInfo();
+
+
+// Checking the array
+console.log("========== Transactions array ==========");
+console.log(transactions[0].status);
+console.log(transactions[1]);
