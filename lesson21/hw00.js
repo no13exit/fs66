@@ -49,7 +49,6 @@ function Product(name, description, price) {
   this.name = name;
   this.description = description;
   this.price = price;
-
   this.info = function () {
     return `товар: ${this.name}; цена: ${this.price} описание: ${this.description}`;
   };
@@ -86,14 +85,36 @@ const products = [
 //   console.log(element.info());
 // });
 
-
-products.forEach((element) => {  
-   console.log("==================================");
-  for (const key in element) {
-      if (typeof element[key] === 'function') {
+function printProducts(array) {
+  products.forEach((element, i) => {
+    console.log("==================================");
+    console.log(`Product ${i + 1}`);
+    for (const key in element) {
+      if (typeof element[key] === "function") {
         console.log(`aggregated: ${element[key]()}`);
       } else {
         console.log(`${key}: ${element[key]}`);
       }
+    }
+  });
+}
+
+printProducts(products);
+
+function Person(name, description, price) {
+  this.name = name;
+  this.description = description;
+  this.price = price;
+  this.info = function () {
+    return `товар: ${this.name}; цена: ${this.price} описание: ${this.description}`;
   };
-});
+}
+
+const ppl = new Person("person1", "description1", 100);
+
+
+
+const protoProd = Object.getPrototypeOf(product2); 
+const protoProd2 = Object.getPrototypeOf(ppl);
+
+console.log(protoProd === protoProd2);

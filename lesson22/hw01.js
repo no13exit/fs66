@@ -69,11 +69,22 @@ const arr = [test1, test2, test3, test4, test5, test6];
 
 console.log("accounts list printout");
 
+
+function printAccounts(accounts) {
+  accounts.forEach(function (account, index) {
+    console.log(`========== Account ${index + 1} ==========`);
+    console.log(`IBAN: ${account.iban}`);
+    console.log(`Owner: ${account.owner}`);
+    console.log(`Balance: ${account.getBalance()}`);
+  });
+}
+
+printAccounts(arr);
+
 // Array for storing compact transaction records
 const transactions = [];
 
 
-// Transfer function
 function transfer(account1, account2, amount) {
   const transaction = {};
 
@@ -102,55 +113,30 @@ function transfer(account1, account2, amount) {
     };
   }
 
+  transactions.push(transaction);
+
   return transaction;
 }
 
-
-// Function for adding a compact transaction record to the array
-function addTransaction(array, transaction) {
-  const transactionRecord = {};
-
-  transactionRecord.account1 = transaction.account1.iban;
-  transactionRecord.account2 = transaction.account2.iban;
-  transactionRecord.amount = transaction.amount;
-
-  if (transaction.error) {
-    transactionRecord.status = "Failed";
-    transactionRecord.error = transaction.error;
-  } else {
-    transactionRecord.status = "Successful";
-  }
-
-  array.push(transactionRecord);
-}
-
-
-// Successful transfer test
 const successfulTransaction = transfer(test1, test2, 100);
 
-addTransaction(transactions, successfulTransaction);
-
-console.log("========== Successful transaction test ==========");
+console.log("========== Successful transaction ==========");
 successfulTransaction.transactionInfo();
 
-
-// Failed transfer test
 const failedTransaction = transfer(test1, test2, 1000000000);
 
-addTransaction(transactions, failedTransaction);
-
-console.log("========== Failed transaction test ==========");
+console.log("========== Failed transaction ==========");
 failedTransaction.transactionInfo();
 
+console.log("========== Transactions history ==========");
 
-// Compact transaction history
-console.log("========== Transactions array ==========");
-console.log(transactions);
-console.log("========== Failed transaction test ==========");
-failedTransaction.transactionInfo();
+transactions.forEach(function (transaction, index) {
+  console.log(`Transaction ${index + 1}`);
+  transaction.transactionInfo();
+});
 
+transactions[0].transactionInfo();
+transactions[1].transactionInfo();
 
-// Checking the array
-console.log("========== Transactions array ==========");
-console.log(transactions[0].status);
-console.log(transactions[1]);
+console.log(transactions[0].amount);
+console.log(transactions[1].error);
