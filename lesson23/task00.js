@@ -77,18 +77,18 @@ const paragraphs = data.split(/\r?\n/);
 // }
 
 
-// unstable output due to tue AI responses not being deterministic
+// unstable output due to tue AI responses not being deterministic despite temp 0
 grep = paragraphs.slice(12,20);
 console.log(grep);
 
 
-// 1. Просто режем весь текст по заголовкам "### "
+// Просто режем весь текст по заголовкам "### "
 const sections = data.split('### ');
 
-// 2. Ищем кусок, который начинается со слов "Коды ответа"
+// Ищем кусок, который начинается со слов "Коды ответа"
 const statusCodesSection = sections.find(section => 
   section.trim().startsWith("Коды ответа")
 );
 
 console.log("--- ВЫРЕЗАННЫЙ БЛОК ---");
-console.log("### " + statusCodesSection); // Возвращаем заголовок на место
+console.log("### " + statusCodesSection);
