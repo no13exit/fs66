@@ -69,7 +69,7 @@ const paragraphs = data.split(/\r?\n/);
 
 
 
-// print all paragraphs with their index to locate the part about error codes, commented later
+//print all paragraphs with their index to locate the part about error codes, commented later
 // for (let i = 0; i < paragraphs.length; i++) {
 //   const paragraph = paragraphs[i];
 //   console.log(i);
@@ -77,6 +77,18 @@ const paragraphs = data.split(/\r?\n/);
 // }
 
 
-
-grep = paragraphs.slice(16,27);
+// unstable output due to tue AI responses not being deterministic
+grep = paragraphs.slice(12,20);
 console.log(grep);
+
+
+// 1. Просто режем весь текст по заголовкам "### "
+const sections = data.split('### ');
+
+// 2. Ищем кусок, который начинается со слов "Коды ответа"
+const statusCodesSection = sections.find(section => 
+  section.trim().startsWith("Коды ответа")
+);
+
+console.log("--- ВЫРЕЗАННЫЙ БЛОК ---");
+console.log("### " + statusCodesSection); // Возвращаем заголовок на место
