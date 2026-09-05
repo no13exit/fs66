@@ -27,7 +27,8 @@ async function runFridgeApp() {
   console.log("Программа для учета продуктов в холодильнике.");
   //adding print to show contents
   if (fridge.length > 0) {printFridge(fridge)}; 
-    console.log(
+
+  console.log(
     "Введите продукты в холодильнике. Для завершения введите 'exit', 'stop', 'выход' или 'стоп'.",
   );
 
@@ -59,6 +60,8 @@ async function runFridgeApp() {
       continue;
     }
 
+
+    // adding variable to see if product exists in fridge and get its index to update or delete it
     const productIndex = fridge.findIndex(
       (product) => product.name.toLowerCase() === trimmedName.toLowerCase(),
     );
@@ -159,7 +162,6 @@ async function loadFridge(filePath) {
 
     return lines.map((line) => {
       const separatorIndex = line.lastIndexOf(",");
-
       const name = line.slice(0, separatorIndex);
       const count = Number(line.slice(separatorIndex + 1));
 
