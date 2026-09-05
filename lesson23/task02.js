@@ -17,15 +17,17 @@ import { writeFile, readFile } from "node:fs/promises";
 import path from "node:path";
 
 async function runFridgeApp() {
+  const filePath = path.resolve("fridge.csv");
+  const fridge = await loadFridge(filePath);
   const rl = readline.createInterface({ input, output });
-  const fridge = [];
   //can keep stopwords outside the loop to avoid creating a new array on each iteration
   const stopWords = ["exit", "выход", "стоп", "stop"];
-// want to read the file if it exists and load the data into fridge array
-  const filePath = path.resolve("fridge.csv");
+
 
   console.log("Программа для учета продуктов в холодильнике.");
-  console.log(
+  //adding print to show contents
+  if (fridge.length > 0) {printFridge(fridge)}; 
+    console.log(
     "Введите продукты в холодильнике. Для завершения введите 'exit', 'stop', 'выход' или 'стоп'.",
   );
 
@@ -95,20 +97,21 @@ async function runFridgeApp() {
 
   rl.close();
   console.log("Работа программы завершена.");
+  printFridge(fridge);
 
   //no need since we are autosaving always
-//   const filePath = path.resolve("fridge.csv");
-//   const csvData = convertToCsv(fridge);
+  //   const filePath = path.resolve("fridge.csv");
+  //   const csvData = convertToCsv(fridge);
 
-//   try {
-//     await writeFile(filePath, csvData, "utf-8");
+  //   try {
+  //     await writeFile(filePath, csvData, "utf-8");
 
-//     console.log(`Данные о продуктах сохранены в файл: ${filePath}`);
-//     printFridge(fridge);
-//     await saveFridge(fridge, filePath);
-//   } catch (error) {
-//     console.error("Ошибка при сохранении файла:", error.message);
-//   }
+  //     console.log(`Данные о продуктах сохранены в файл: ${filePath}`);
+  //     printFridge(fridge);
+  //     await saveFridge(fridge, filePath);
+  //   } catch (error) {
+  //     console.error("Ошибка при сохранении файла:", error.message);
+  //   }
 }
 
 //print function
@@ -135,7 +138,6 @@ function convertToCsv(fridge) {
   return [header, ...rows].join("\n");
 }
 
-
 //save to file function
 async function saveFridge(fridge, filePath) {
   const csvData = convertToCsv(fridge);
@@ -144,8 +146,32 @@ async function saveFridge(fridge, filePath) {
   console.log(`Файл обновлён: ${filePath}`);
 }
 
+async function loadFridge(filePath) {
+  try {
+    const fileData = await readFile(filePath, "utf-8");
 
+    if (fileData.trim() === "") {
+      return [];
+    }
 
+    const lines = fileData.trim().split(/\r?\n/);
+    lines.shift(); // Убираем строку заголовка
 
+    return lines.map((line) => {
+      const separatorIndex = line.lastIndexOf(",");
+
+      const name = line.slice(0, separatorIndex);
+      const count = Number(line.slice(separatorIndex + 1));
+
+      return { name, count };
+    });
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return []; // Если файла ещё нет
+    }
+
+    throw error;
+  }
+}
 
 runFridgeApp();
